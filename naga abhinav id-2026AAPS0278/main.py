@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as ani
 import pandas as pd
-# taking values deapth data csv file
+# reading the csv file
 try :
     f = pd.read_csv("Depth Data (1).csv")
-# checking for file
+# checking if file there or not
 except FileNotFoundError:
     print("File not found")
 #removing unwanted spaces
@@ -28,7 +28,7 @@ for val in rawval:
 #making a list for timestamps
 timestop =list(range(1,len(cleaned_depths)+1))
 
-#code for average values for a smooth graph
+#having average values to have a smooth graph
 smoothdepth= []
 for i in range(len(cleaned_depths)):
     #removing the first and last values to not take average of
@@ -39,20 +39,20 @@ for i in range(len(cleaned_depths)):
         avg = (cleaned_depths[i-2] + cleaned_depths[i-1]+cleaned_depths[i] + cleaned_depths[i+1]+cleaned_depths[i+2])/5
         smoothdepth.append(avg)
 
-#plotting the graph
+#making the graph
 fig, ax = plt.subplots()
 #setting title axis names and having
 ax.set_title("Ship Depth Sensor")
 ax.set_xlabel("Time (s)")
 ax.set_ylabel("Depth (m)")
 ax.grid(True)
-#setting limits of the axes
+#setting maximum and minimum limits of the axes
 ax.set_ylim(max(cleaned_depths)+20 ,0)
 ax.set_xlim(1 ,len(timestop))
 
-#lines showing graphs with their attributes
-line_raw = ax.plot([],[],color= "green",alpha = 0.5 , label = "Raw Depth", linestyle = "--")[0]
-line_smooth = ax.plot([],[],color = "red", alpha = 0.5 , label = "Smooth Depth", linewidth = 2)[0]
+#lines for showing the graphs with their attributes
+line_raw = ax.plot([],[],color= "black",alpha = 0.5 , label = "Raw Depth", linestyle = "--")[0]
+line_smooth = ax.plot([],[],color = "blue", alpha = 0.5 , label = "Smooth Depth", linewidth = 2)[0]
 #setting up the legend
 ax.legend(loc="upper left")
 
